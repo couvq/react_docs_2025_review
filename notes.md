@@ -3,7 +3,7 @@
 - State is a component's memory and React handles it for us behind the hood. Components will rerender whenever
 their props or state changes (unless memoized) and child components will rerender as well (unless memoized).
 - State can be thought of as a snapshot, when a component is rendered the current snapshot of its state will be used within 
-the component. Code like this `setState(count + 1)` will use the current snapshot of the `count` state in a computation.
+the component. The current snapshot for a given component is set by its previous render. Code like this `setState(count + 1)` will use the current snapshot of the `count` state in a computation.
 - State updates are queued/buffered. This is a performance optimization React does under the hood to ensure we minimize the
 number of updates made to the DOM. Within an event handler, calls to setState will request a rerender, all state updating calls
 are queued behind the scenes and once the event handler is finished, React will perform the rerendering and committing.
