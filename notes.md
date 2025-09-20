@@ -22,7 +22,7 @@ onClick={(e) => {
 What happens in this code?
 1. The event handler is triggered by a click event
 2. `setCount(0)`, a replacement of the count state to 0 is queued in the queued
-3. `setCount(1)`, a replacement of the count state to 1 is queued in the queued
+3. `setCount(1)`, a replacement of the count state to 1 is queued in the queued. If this had been `setCount(count + 1)` in our code the current snapshot of state for the previous render (0) would have been used for `count`)
 4. `setCount(c => c + 1)`, the state updating function is queued, the function takes the current count state and increments it by 1
 5. The event handler ends, now the queue is processed by React to apply state updates. 
     * First `setCount(0`) is processed, the current value of count is 0 and it is set to 0
