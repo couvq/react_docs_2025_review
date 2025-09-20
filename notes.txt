@@ -1,0 +1,38 @@
+# Notes while I review the React docs in 2025
+
+- State is a component's memory and React handles it for us behind the hood. Components will rerender whenever
+their props or state changes (unless memoized) and child components will rerender as well (unless memoized).
+- State can be thought of as a snapshot, when a component is rendered the current snapshot of its state will be used within 
+the component. Code like this `setState(count + 1)` will use the current snapshot of the `count` state in a computation.
+- State updates are queued/buffered. This is a performance optimization React does under the hood to ensure we minimize the
+number of updates made to the DOM. Within an event handler, calls to setState will request a rerender, all state updating calls
+are queued behind the scenes and once the event handler is finished, React will perform the rerendering and committing.
+
+Here is an example:
+```
+const [count, setCount] = useState(0)
+...
+onClick={(e) => {
+    setCount(0);
+    setCount(1);
+    setCount(c => c + 1)
+}}
+```
+
+What happens in this code?
+1. The event handler is triggered by a click event
+2. `setCount(0)`, a replacement of the count state to 0 is queued in the queued
+3. `setCount(1)`, a replacement of the count state to 1 is queued in the queued
+4. `setCount(c => c + 1)`, the state updating function is queued, the function takes the current count state and increments it by 1
+5. The event handler ends, now the queue is processed by React to apply state updates. 
+    * First `setCount(0`) is processed, the current value of count is 0 and it is set to 0
+    * then `setCount(1)` is processed, the current value of count is 0 and it is set to 1
+    * then `setCount(c => c + 1)` is processed, the current value of count is 1 and the state updating function is applied with this value to set the state to 2
+6. React detects that the `count` state has changed which belongs to our component, react diffs the virtual dom to figure out
+what needs to change, then the minimal updates are made to the actual dom.
+- Components must be pure/immutable -  they must return the same output given the same inputs and they mind their own business,
+as in they do not manipulate anything that was created before the component definition
+- React preserves state for components that are in the same position in the render tree, components are deleted or
+rearranged within the render tree the state is dropped. This is another use case for keys, they can be used to keep state
+if the position has changed.
+
