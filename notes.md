@@ -35,4 +35,5 @@ as in they do not manipulate anything that was created before the component defi
 - React preserves state for components that are in the same position in the render tree, components are deleted or
 rearranged within the render tree the state is dropped. This is another use case for keys, they can be used to keep state
 if the position has changed.
+- We should strive to keep the minimum amount of state necessary, i.e. no duplicated/normalized state, no state that contradicts itself, no state that can be inferred by some other state, etc.
 
