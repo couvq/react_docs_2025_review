@@ -1,7 +1,7 @@
-import SearchableProductList from "./thinking_in_react/components/SearchableProductList";
+import LanguagePickerExample from "./scaling_up_with_reducer_and_context/LanguagePickerExample";
 
 const App = () => {
-  return <SearchableProductList />;
+  return <LanguagePickerExample />;
 };
 
 export default App;
