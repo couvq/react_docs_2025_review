@@ -6,7 +6,7 @@ import {
     type ReactNode
 } from "react";
 
-type Locale = "en" | "fr";
+export type Locale = "en" | "fr";
 
 interface LocaleProviderProps {
   children: ReactNode;
